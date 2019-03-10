@@ -2,6 +2,7 @@ package com
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/op/go-logging"
@@ -26,18 +27,10 @@ func init() {
 
 // GetConfigPath x
 func GetConfigPath() string {
-	path := os.Args[0]
-
-	i := strings.LastIndex(path, "\\")
-	if i == -1 {
-		i = strings.LastIndex(path, "/")
+	path, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		HhjLog.Fatalf("Config path error: %s", os.Args[0])
 	}
-
-	if i == -1 {
-		HhjLog.Fatalf("Config path error: %s", path)
-	}
-
-	path = string(path[0:i])
 
 	return path
 }
