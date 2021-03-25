@@ -263,7 +263,9 @@ func GetPrimaryKeywordsByPrimaryKeyword(keyword string) []string {
 
 // NewMyKeywordStruct is created for KAD search.
 func NewMyKeywordStruct(myKeyword *MyKeyword, items []*Item) *MyKeywordStruct {
-	targetKeywords := getTargetKeywords(items)
+	// targetKeywords := getTargetKeywords(items)
+	var targetKeywords []string
+	targetKeywords = myKeyword.SearchKeywords
 	if targetKeywords == nil {
 		HhjLog.Warningf("No target keywords for MyKeyword: %+v", myKeyword)
 		return nil

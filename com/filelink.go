@@ -224,44 +224,13 @@ func ToFileInfo(name string, items []*Item) *FileInfo {
 	// match
 	lowerName := strings.ToLower(name)
 	var fileInfo *FileInfo
-	for _, item := range items {
-		if fileInfo != nil {
-			break
-		}
 
-		orgName := strings.ToLower(item.OrgName)
-
-		switch item.Type {
-		case SeasonTV:
-			season, episode := parseSeasonTVName(lowerName, orgName)
-			if season != -1 && episode != -1 {
-				fileInfo = &FileInfo{Type: item.Type, OrgName: item.OrgName, ChName: item.ChName,
-					Season:  season,
-					Episode: episode}
-			}
-		case NoSeasonTV:
-			episode := parseNoSeasonTVName(lowerName, orgName)
-			if episode != -1 {
-				fileInfo = &FileInfo{Type: item.Type, OrgName: item.OrgName, ChName: item.ChName,
-					Season:  -1,
-					Episode: episode}
-			}
-		case Movie:
-			match := parseName(lowerName, orgName)
-			if match {
-				fileInfo = &FileInfo{Type: item.Type, OrgName: item.OrgName, ChName: item.ChName,
-					Season:  -1,
-					Episode: -1}
-			}
-		default:
-			season, episode, itemType := parseUnknownTypeName(lowerName, orgName)
-			if itemType != UnknownType {
-				// Note that we don't set type of item because item type cannot be inferred by movie/tv name.
-				fileInfo = &FileInfo{Type: itemType, OrgName: item.OrgName, ChName: item.ChName,
-					Season:  season,
-					Episode: episode}
-			}
-		}
+	season, episode, itemType := parseUnknownTypeName(lowerName, lowerName)
+	if itemType != UnknownType {
+		// Note that we don't set type of item because item type cannot be inferred by movie/tv name.
+		fileInfo = &FileInfo{Type: itemType, OrgName: lowerName, ChName: lowerName,
+			Season:  season,
+			Episode: episode}
 	}
 
 	if fileInfo == nil {

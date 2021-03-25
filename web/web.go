@@ -19,7 +19,7 @@ import (
 
 const (
 	keywordCheckWaitingTime = 5
-	kadSearchWaitingTime    = 5
+	kadSearchWaitingTime    = 15
 )
 
 // webError is for user browser.
@@ -161,13 +161,13 @@ func (we *Web) searchHandler(ws *websocket.Conn) {
 		// send to Door for keyword checking
 		items, errStr = we.checkKeywordsFromDoor(myKeyword)
 	}
-	if len(items) == 0 {
-		if errStr == "" {
-			errStr = "没有找到相关的电视剧或者电影，请重新输入！"
-		}
-		we.writeError(ws, errStr)
-		return
-	}
+	// if len(items) == 0 {
+	// 	if errStr == "" {
+	// 		errStr = "没有找到相关的电视剧或者电影，请重新输入！"
+	// 	}
+	// 	we.writeError(ws, errStr)
+	// 	return
+	// }
 
 	// add valid new search keywords for statistic
 	we.userSearchTrack.addSearchKeywords([]string{strings.Join(myKeyword.SearchKeywords, " ")})
