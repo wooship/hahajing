@@ -4,6 +4,7 @@
 ### 简介
 * web化的eMule ed2k下载链接搜索引擎(电影/电视剧), 用Go开发。从eMule KAD网络搜索下载链接。 用户的搜索输入首先会经过豆瓣或者时光网的验证, 然后才发给eMule KAD网络查找。
 * 如果你不想搜索链接被过滤，可以独立使用KAD搜索引擎. 可以参考**main.go**和**web/web.go** 里的代码。
+* 完整emule客户端，支持搜索、下载 https://github.com/chenjia404/emule_helper
 
 ---
 ### 如何编译

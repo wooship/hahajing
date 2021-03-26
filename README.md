@@ -7,6 +7,7 @@
 * This is web based eMule ed2k link search engine for Movie/TV, developed by Go. It searches file link from eMule KAD network. User search input will be firstly validated via DouBan or MTime, and then send eMule KAD network for searching. Results will be classcified and then display on browser.
 * KAD search egnine is independent in case you don't want file links to be filtered. It's easy to use it without dependency. Check **main.go** and **web/web.go** to see how to use it.
 * Currently, the web page is displayed in Chinese, but it's easy to guess how to use it.
+* full emule Client，Support search and download https://github.com/chenjia404/emule_helper
 
 ---
 ### How to build
