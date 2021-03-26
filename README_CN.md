@@ -28,8 +28,8 @@
 
 ---
 ### 运行图示
-![home](https://github.com/moyuanz/hahajing/blob/master/doc/home.png)
-![result](https://github.com/moyuanz/hahajing/blob/master/doc/result.png)
+![home](./doc/home.png)
+![result](./doc/result.png)
 
 ---
 ### 协议
