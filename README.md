@@ -1,6 +1,6 @@
 # An eMule ed2k link search engine for Movie/TV
 
-[中文版](https://github.com/moyuanz/hahajing/blob/master/README_CN.md)
+[中文版](./README_CN.md)
 
 ---
 ### Introduction
@@ -30,8 +30,8 @@
 
 ---
 ### What it looks like
-![home](https://github.com/moyuanz/hahajing/blob/master/doc/home.png)
-![result](https://github.com/moyuanz/hahajing/blob/master/doc/result.png)
+![home](./doc/home.png)
+![result](./doc/result.png)
 
 ---
 ### License
