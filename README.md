@@ -15,7 +15,7 @@
 - For Linux, e.g. on Ubuntu(64bit), you can use below commands to build it
     * set GOARCH=amd64
     * set GOOS=linux
-    * go get
+    * go mod tidy
     * go build
 
 ---

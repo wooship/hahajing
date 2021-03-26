@@ -12,7 +12,7 @@
 - 对于Linux，比如Ubuntu(64bit)， 你可以用下面的命令编译它
     * set GOARCH=amd64
     * set GOOS=linux
-    * go get
+    * go mod tidy
     * go build
 
 
