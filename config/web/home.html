@@ -131,7 +131,7 @@
             var orgName = getOrgName(file)
 
             // new file div
-            if ($("div#" + fileDivID).length == 0) {
+            if (true) {
                 var fileDiv = '<div id="{0}"></div>'.format(fileDivID)
 
                 if (file.Type == 0) {
@@ -142,7 +142,7 @@
             }
 
             // new season or movie div
-            if ($("div#" + seasonDivID).length == 0) {
+            if (true) {
                 var divName = getSeasonDivName(file)
                 var divColor
                 if (file.Type == 0) {
@@ -193,12 +193,7 @@
                     </table>'.format(episodeTableID)
 
                 var div
-                if (file.Type == 0) {
-                    div = '<div>{0}</div>'.format(table)
-                } else {
-                    var divName = "第{0}集".format(file.Episode)
-                    div = '<div><h6><span class="badge badge-success">{0}</span></h6>{1}</div>'.format(divName, table)
-                }
+                div = '<div>{0}</div>'.format(table)
 
                 var inserted = false
                 for (var i = file.Episode - 1; i > 0; i--) {
@@ -238,46 +233,46 @@
             var orgName = getOrgName(file)
 
             // new file nav div
-            if ($("div#" + fileNavDivID).length == 0) {
-                var fileDiv = '<div id="{0}"></div>'.format(fileNavDivID)
+            // if ($("div#" + fileNavDivID).length == 0) {
+            //     var fileDiv = '<div id="{0}"></div>'.format(fileNavDivID)
 
-                if (file.Type == 0) {
-                    $("#nav_movie > div").append(fileDiv)
-                } else {
-                    $("#nav_tv > div").prepend(fileDiv)
-                }
-            }
+            //     if (file.Type == 0) {
+            //         $("#nav_movie > div").append(fileDiv)
+            //     } else {
+            //         $("#nav_tv > div").prepend(fileDiv)
+            //     }
+            // }
 
-            var divSelector = "div#" + fileNavDivID
-            if ($((divSelector + ' a[href="#{0}"]').format(seasonDivID)).length == 0) {
-                var a = '<a class="dropdown-item" href="#{0}">{1}</a>'.format(seasonDivID, seasonDivName)
+            // var divSelector = "div#" + fileNavDivID
+            // if ($((divSelector + ' a[href="#{0}"]').format(seasonDivID)).length == 0) {
+            //     var a = '<a class="dropdown-item" href="#{0}">{1}</a>'.format(seasonDivID, seasonDivName)
 
-                var inserted = false
-                for (var i = file.Season - 1; i > 0; i--) {
-                    var seasonDivIDTemp = orgName + "_s" + i.toString()
-                    var a1 = $((divSelector + ' a[href="#{0}"]').format(seasonDivIDTemp))
-                    if (a1.length > 0) {
-                        a1.after(a)
-                        inserted = true
-                        break
-                    }
-                }
+            //     var inserted = false
+            //     for (var i = file.Season - 1; i > 0; i--) {
+            //         var seasonDivIDTemp = orgName + "_s" + i.toString()
+            //         var a1 = $((divSelector + ' a[href="#{0}"]').format(seasonDivIDTemp))
+            //         if (a1.length > 0) {
+            //             a1.after(a)
+            //             inserted = true
+            //             break
+            //         }
+            //     }
 
-                if (!inserted) {
-                    if (file.Type == 0) {
-                        $(divSelector).append(a)
-                    } else {
-                        $(divSelector).prepend(a)
-                    }
-                }
+            //     if (!inserted) {
+            //         if (file.Type == 0) {
+            //             $(divSelector).append(a)
+            //         } else {
+            //             $(divSelector).prepend(a)
+            //         }
+            //     }
 
-                // bind click event for anchor
-                $('a.dropdown-item').click(function (event) {
-                    event.preventDefault();
-                    $($(this).attr('href'))[0].scrollIntoView();
-                    scrollBy(0, -70);
-                });
-            }
+            //     // bind click event for anchor
+            //     $('a.dropdown-item').click(function (event) {
+            //         event.preventDefault();
+            //         $($(this).attr('href'))[0].scrollIntoView();
+            //         scrollBy(0, -70);
+            //     });
+            // }
         }
 
         function addFile(file) {
