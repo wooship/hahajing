@@ -99,15 +99,6 @@ func IsChinese(c rune) bool {
 	return c >= 0x4E00 && c <= 0x9FA5
 }
 
-// IsEnglishOrChinese is char is English or Chinese.
-func IsEnglishOrChinese(c rune) bool {
-	if c >= 0 && c <= 255 {
-		return true
-	}
-
-	return IsChinese(c)
-}
-
 // Split2PrimaryKeywords is split to slice of primary keyword by seperators.
 // And keyword containing specific char not thinking as primary keyword.
 func Split2PrimaryKeywords(s string) []string {
@@ -159,50 +150,4 @@ func innerSplit2Keywords(s string, ignore string) []string {
 	}
 
 	return newKeys
-}
-
-var yellowKeys = []string{
-	"性交", "做爱", "打炮", "无码", "有码", "淫", "偷拍", "中出", "熟女", "巨乳", "人妻",
-	"無碼", "有碼",
-	"sex", "gay",
-}
-
-var yellowGroupKeys = [][]string{
-	{"tokyo", "hot"},
-}
-
-// IsYellow is to check if name has sex info or not.
-func IsYellow(name string) bool {
-	name = strings.ToLower(name)
-
-	// filter Japanse
-	for _, c := range name {
-		if !IsEnglishOrChinese(c) {
-			return true
-		}
-	}
-
-	// filter by keyword
-	for _, key := range yellowKeys {
-		if strings.Index(name, key) != -1 {
-			return true
-		}
-	}
-
-	// filter by group keywords
-	for _, keys := range yellowGroupKeys {
-		yellow := true
-		for _, key := range keys {
-			if strings.Index(name, key) == -1 {
-				yellow = false
-				break
-			}
-		}
-
-		if yellow {
-			return true
-		}
-	}
-
-	return false
 }

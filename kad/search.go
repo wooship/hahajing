@@ -68,13 +68,6 @@ func (s *Search) addFiles(files []*Ed2kFileStruct) []*Ed2kFileStruct {
 			continue
 		}
 
-		//log.Println(file.Name)
-
-		// check if yellow media or not
-		// if com.IsYellow(file.Name) {
-		// 	continue
-		// }
-
 		s.fileHashMap[file.Hash] = true
 
 		s.files = append(s.files, file)

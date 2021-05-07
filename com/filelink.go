@@ -40,6 +40,7 @@ type ed2kFileLinkJSON struct {
 	Name  string
 	Size  uint64
 	Avail uint32
+	Hash  string
 	Link  string
 }
 
@@ -282,11 +283,13 @@ func (f *Ed2kFileLink) GetPrintStr() string {
 
 // ToJSON x
 func (f *Ed2kFileLink) ToJSON() []byte {
+	newHash := ConvertEd2kHash32(f.Hash)
 	linkJSON := ed2kFileLinkJSON{
 		FileInfo: f.FileInfo,
 		Name:     f.Name,
 		Size:     f.Size,
 		Avail:    f.Avail,
+		Hash:     encodeBase16(newHash[:]),
 		Link:     f.GetEd2kLink()}
 
 	b, _ := json.Marshal(linkJSON)

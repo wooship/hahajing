@@ -70,65 +70,13 @@
             return result;
         }
 
-        function getOrgName(file) {
-            return file.OrgName.replace(/[ ·\t/\\\*\?\!<>\|\-:,\.;'"\(\)\[\]‘’“”；、：，。？！]/g, "_")
-        }
+        
 
-        function getFileDivID(file) {
-            var divID
-            var orgName = getOrgName(file)
-            if (file.Type == 0) {
-                divID = orgName + "_movie"
-            } else {
-                divID = orgName + "_tv"
-            }
-
-            return divID
-        }
-
-        function getSeasonDivID(file) {
-            var seasonDivID
-            var orgName = getOrgName(file)
-            if (file.Type == 0) {
-                seasonDivID = orgName
-            } else {
-                seasonDivID = orgName + "_s" + file.Season.toString()
-            }
-
-            return seasonDivID
-        }
-
-        function getSeasonDivNameWithoutPrefix(file) {
-            var divName
-            if (file.OrgName == file.ChName) {
-                divName = "{0}".format(file.OrgName)
-            } else {
-                divName = "{0}({1})".format(file.ChName, file.OrgName)
-            }
-
-            if (file.Season != -1) {
-                divName += " 第{0}季".format(file.Season)
-            }
-
-            return divName
-        }
-
-        function getSeasonDivName(file) {
-            var divName = getSeasonDivNameWithoutPrefix(file)
-
-            if (file.Type == 0) {
-                divName = "电影: " + divName
-            } else {
-                divName = "电视剧: " + divName
-            }
-
-            return divName
-        }
-
+        needAddSeason =true;
         function getSeasonOrMovieDiv(file) {
-            var fileDivID = getFileDivID(file)
-            var seasonDivID = getSeasonDivID(file)
-            var orgName = getOrgName(file)
+            var fileDivID = "getFileDivID"
+            var seasonDivID = "getSeasonDivID"
+            var orgName = "getOrgName"
 
             // new file div
             if (true) {
@@ -142,8 +90,8 @@
             }
 
             // new season or movie div
-            if (true) {
-                var divName = getSeasonDivName(file)
+            if (needAddSeason) {
+                var divName = "getSeasonDivName"
                 var divColor
                 if (file.Type == 0) {
                     divColor = "danger"
@@ -151,7 +99,7 @@
                     divColor = "warning"
                 }
 
-                var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, divName)
+                var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, "搜索结果")
                 var inserted = false
                 for (var i = file.Season - 1; i > 0; i--) {
                     var seasonDivIDTemp = orgName + "_s" + i.toString()
@@ -170,6 +118,7 @@
                         $("div#" + fileDivID).prepend(div)
                     }
                 }
+                needAddSeason = false
             }
 
             return $("div#" + seasonDivID)
@@ -177,19 +126,15 @@
 
         function getEpisodeOrMovieTableBody(file, seasonOrMovieDiv) {
             var episodeTableID
-            var orgName = getOrgName(file)
+            var orgName = "getOrgName"
             var season = "_s" + file.Season.toString()
-            if (file.Type == 0) {
-                episodeTableID = orgName + "_table"
-            } else {
-                episodeTableID = orgName + season + "_e" + file.Episode.toString()
-            }
+            episodeTableID = "file_list"
 
             // new div
             if ($("table#" + episodeTableID).length == 0) {
                 var table =
                     '<table id="{0}" class="table table-bordered table-condensed" style="word-break:break-all">\
-                        <thead><tr><td>名字</td><td style="word-break:keep-all;white-space:nowrap">大小(M)</td><td style="word-break:keep-all">可用源</td></tr></thead><tbody></tbody>\
+                        <thead><tr><td>文件名</td><td style="word-break:keep-all;white-space:nowrap">大小(M)</td><td style="word-break:keep-all">可用源</td></tr></thead><tbody></tbody>\
                     </table>'.format(episodeTableID)
 
                 var div
@@ -226,57 +171,9 @@
             return divID
         }
 
-        function createNavPills(file) {
-            var fileNavDivID = getFileNavDivID(file)
-            var seasonDivID = getSeasonDivID(file)
-            var seasonDivName = getSeasonDivNameWithoutPrefix(file)
-            var orgName = getOrgName(file)
 
-            // new file nav div
-            // if ($("div#" + fileNavDivID).length == 0) {
-            //     var fileDiv = '<div id="{0}"></div>'.format(fileNavDivID)
-
-            //     if (file.Type == 0) {
-            //         $("#nav_movie > div").append(fileDiv)
-            //     } else {
-            //         $("#nav_tv > div").prepend(fileDiv)
-            //     }
-            // }
-
-            // var divSelector = "div#" + fileNavDivID
-            // if ($((divSelector + ' a[href="#{0}"]').format(seasonDivID)).length == 0) {
-            //     var a = '<a class="dropdown-item" href="#{0}">{1}</a>'.format(seasonDivID, seasonDivName)
-
-            //     var inserted = false
-            //     for (var i = file.Season - 1; i > 0; i--) {
-            //         var seasonDivIDTemp = orgName + "_s" + i.toString()
-            //         var a1 = $((divSelector + ' a[href="#{0}"]').format(seasonDivIDTemp))
-            //         if (a1.length > 0) {
-            //             a1.after(a)
-            //             inserted = true
-            //             break
-            //         }
-            //     }
-
-            //     if (!inserted) {
-            //         if (file.Type == 0) {
-            //             $(divSelector).append(a)
-            //         } else {
-            //             $(divSelector).prepend(a)
-            //         }
-            //     }
-
-            //     // bind click event for anchor
-            //     $('a.dropdown-item').click(function (event) {
-            //         event.preventDefault();
-            //         $($(this).attr('href'))[0].scrollIntoView();
-            //         scrollBy(0, -70);
-            //     });
-            // }
-        }
 
         function addFile(file) {
-            createNavPills(file)
             var seasonOrMovieDiv = getSeasonOrMovieDiv(file)
             var tableBody = getEpisodeOrMovieTableBody(file, seasonOrMovieDiv)
 
