@@ -19,8 +19,9 @@
 ---
 ### 如何运行
 - 本地(比如Windows)
-    * 运行hahajing.exe（web服务器运行在**localhost:66**）
-    * 打开浏览器访问**localhost:66**
+    * 运行hahajing.exe
+    * 打开浏览器访问[localhost:2021](localhost:2021),输入关键词等待搜索结果
+    * 使用迅雷等软件进行下载
 - 服务器(比如Ubuntu)
     * nohup hahajing server &
     * 打开浏览器访问服务器

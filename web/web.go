@@ -212,7 +212,7 @@ func (we *Web) startServer() {
 	if len(os.Args) > 1 && os.Args[1] == "server" {
 		err = http.ListenAndServe(":80", nil)
 	} else {
-		err = http.ListenAndServe(":66", nil)
+		err = http.ListenAndServe(":2021", nil)
 	}
 	if err != nil {
 		com.HhjLog.Panic("Start Web Server failed: ", err)

@@ -21,8 +21,8 @@
 ---
 ### How to run
 - Local side(e.g. Windows)
-    * Run hahajing.exe (here web server is started at **localhost:66**)
-    * Open browser to visit **localhost:66**
+    * Run hahajing.exe (here web server is started at **localhost:2021**)
+    * Open browser to visit [localhost:2021](localhost:2021)
 - Server side(e.g. Ubuntu)
     * nohup hahajing server &
     * Open browser to visit the server
