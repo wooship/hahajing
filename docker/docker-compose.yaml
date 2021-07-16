@@ -1,7 +1,7 @@
 version: '2'
 services:
     hahajing:
-        image: barretthugh/hahajing
+        image: xhip/kadzilla
         ports:
             - "80:80"
         restart: always
