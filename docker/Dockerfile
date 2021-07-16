@@ -20,8 +20,8 @@ RUN apk --update add git \
   && git clone https://github.com/golang/crypto \
   && git clone https://github.com/golang/net \
   && cd /go/src \
-  && git clone https://github.com/wooship/hahajing
-RUN cd /go/src/hahajing \
+  && git clone https://github.com/wooship/hahajing \
+  && cd /go/src/hahajing \
   && set GOARCH=amd64 \
   && set GOOS=linux \
   && go build
