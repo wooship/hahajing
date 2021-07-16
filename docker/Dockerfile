@@ -2,7 +2,7 @@ FROM golang:1.11.1-alpine3.8
 
 ENV TZ=Asia/Shanghai
 
-RUN apk --update add git \
+RUN apt --update add git \
   && mkdir /usr/local/go/src/vendor/github.com \
   && cd /usr/local/go/src/vendor/github.com \
   && mkdir PuerkitoBio \
