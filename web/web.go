@@ -46,7 +46,8 @@ func (we *Web) Start(searchReqCh chan *kad.SearchReq, keywordCheckReqCh chan *do
 	we.userSearchTrack = NewUserSearchTrack()
 
 	// HTML page
-	path := com.GetConfigPath()
+	//path := com.GetConfigPath()
+	path := com.GetCurrentPath()
 	tmpl, err := template.ParseFiles(path + "/config/web/home.html")
 	if err != nil {
 		log.Panic("Home page failed!")

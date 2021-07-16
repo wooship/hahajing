@@ -35,7 +35,8 @@ func (cm *ContactManager) start(pPerfs *Prefs, pPacketProcessor *PacketProcessor
 }
 
 func (cm *ContactManager) readFile() bool {
-	path := com.GetConfigPath()
+	//path := com.GetConfigPath()
+	path := com.GetCurrentPath()
 	nodeFileName := path + "/config/kad/nodes.dat"
 
 	f, err := os.Open(nodeFileName)

@@ -1,6 +1,7 @@
 package com
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -33,6 +34,15 @@ func GetConfigPath() string {
 	}
 
 	return path
+}
+
+//add by wuxiao 2021.06.30
+func GetCurrentPath() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return strings.Replace(dir, "\\", "/", -1)
 }
 
 // CreatePath x

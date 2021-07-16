@@ -239,7 +239,7 @@ func ToFileInfo(name string, items []*Item) *FileInfo {
 	}
 
 	// accurate check for yellow check
-	if fileInfo.OrgName != fileInfo.ChName {
+	/*if fileInfo.OrgName != fileInfo.ChName {
 		// Not Chinese movie or TV
 		// If file name have Chinese char, we think it can be matched by its Chinese name.
 		// Otherwise, we think it as AV.
@@ -257,7 +257,7 @@ func ToFileInfo(name string, items []*Item) *FileInfo {
 				return nil
 			}
 		}
-	}
+	}*/
 
 	return fileInfo
 }

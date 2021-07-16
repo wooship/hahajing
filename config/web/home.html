@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
-    <title>哈哈镜</title>
+    <title>KADZILLA</title>
 </head>
 
 <body>
     <div style="max-width:50rem; margin:10% auto 0 auto">
         <div style="text-align:center">
             <h1>
-                <span class="badge" style="color: #ffffff; background-color: purple">哈哈镜</span>
+                <span class="badge" style="color: #ffffff; background-color: purple">KADZILLA</span>
             </h1>
             <h6>
-                <span class="badge" style="color: #ffffff; background-color: purple">And I swear that I don't have a gun</span>
+                <span class="badge" style="color: #ffffff; background-color: purple">通过KAD网络搜片的小工具，你搜到啥与我无瓜！</span>
             </h6>
         </div>
         <div style="padding-left:5%; padding-right:5%">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="电视剧名，电影名" id="keyword">
-                <button class="btn btn-primary btn-search" type="button" id="search">搜一下</button>
+                <button style="border-top-left-radius: 0rem;border-bottom-left-radius: 0rem;" class="btn btn-primary btn-search" type="button" id="search">搜一下</button>
             </div>
             <div style="margin-top:0.5rem">
                 <span class="badge badge-danger">热门搜索</span>
@@ -133,8 +133,8 @@
             // new div
             if ($("table#" + episodeTableID).length == 0) {
                 var table =
-                    '<table id="{0}" class="table table-bordered table-condensed" style="word-break:break-all">\
-                        <thead><tr><td>文件名</td><td style="word-break:keep-all;white-space:nowrap">大小(M)</td><td style="word-break:keep-all">可用源</td></tr></thead><tbody></tbody>\
+                    '<table id="{0}" class="table table-striped table-hover table-bordered table-condense" style="word-break:break-all">\
+                        <thead><tr><td>链接</td><td style="word-break:keep-all;white-space:nowrap">文件大小</td><td style="word-break:keep-all">可用源数</td></tr></thead><tbody></tbody>\
                     </table>'.format(episodeTableID)
 
                 var div
@@ -181,7 +181,9 @@
             if (size == 0) {
                 size = "小于1"
             }
-            var row = '<tr><td><a href="{0}">{1}</a></td><td>{2}</td><td>{3}</td></tr>'.format(file.Link, file.Name, size, file.Avail)
+            let greatlink = replaceAll(file.Link,"%C3%A","%e")
+            greatlink = replaceAll(greatlink,"%C2%","%")
+            var row = '<tr><td><a href="{0}">{1}</a></td><td>{2}MB</td><td>{3}</td></tr>'.format(greatlink, decodeURIComponent(greatlink), size, file.Avail)
             tableBody.append(row)
         }
 
@@ -249,6 +251,8 @@
         }
 
         function send(data) {
+            //fix bug by wuxiao
+            needAddSeason=true
             // new websocket
             if (ws != undefined) {
                 ws.close()
@@ -278,19 +282,20 @@
             // navbar
             var navbar = '\
             <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: purple">\
-                <a class="navbar-brand" href="/">主页</a>\
+                <a class="navbar-brand" href="/">KADZILLA</a>\
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">\
                     <span class="navbar-toggler-icon"></span>\
                 </button>\
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">\
                     <form class="form-inline my-2 my-lg-0">\
                         <input type="text" class="form-control" placeholder="电视剧名，电影名" id="keyword">\
-                        <button class="btn btn-primary btn-search" type="button" id="search">搜一下</button>\
+                        <button style="margin-left: 5px;" class="btn btn-primary btn-search" type="button" id="search">搜一下</button>\
                     </form>\
                 </div>\
             </nav>\
             '
             $("body").append(navbar)
+            $('#keyword').val(data)
 
             // div for file links
             $("body").append('<div id="content" style="padding-left: 10px;padding-right: 10px"></div>');
@@ -317,6 +322,11 @@
         $(function () {
             bindSearchEvent()
         });
+
+        function replaceAll(str, a, b) {
+            var reg = new RegExp(a, "g");
+            return str.replace(reg, b);
+        }
     </script>
 </body>
 
