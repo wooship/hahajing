@@ -135,7 +135,7 @@
         if ($("table#" + episodeTableID).length == 0) {
             var table =
                 '<table id="{0}" class="table table-striped table-hover table-bordered table-condense" style="word-break:break-all">\
-                    <thead><tr><th>链接</th><th style="word-break:keep-all;white-space:nowrap">文件大小</th><th onClick="sortTable(\'{0}\',2,\'int\');" style="word-break:keep-all;cursor:pointer;white-space: nowrap">来源↑↓</th></tr></thead><tbody></tbody>\
+                    <thead><tr><th onClick="sortTable(\'{0}\',0,\'string\');" style="cursor:pointer">链接↑↓</th><th style="word-break:keep-all;white-space:nowrap">文件大小</th><th onClick="sortTable(\'{0}\',2,\'int\');" style="word-break:keep-all;cursor:pointer;white-space: nowrap">来源↑↓</th></tr></thead><tbody></tbody>\
                 </table>'.format(episodeTableID)
 
             var div
@@ -286,7 +286,7 @@
             for (let i = 0; i < json.s.length; i++) {
                 if ($('#keyword').val() != json.s[i]) {
                     $('#content').append('<a href=\"javascript:send(\'' + json.s[i] + '\');\" style=\"margin-left:0.5rem\">' + json.s[i] + '</a>')
-                    break
+                    // break
                 }
             }
             if(json.s.length==0){
@@ -311,7 +311,8 @@
             ws.close()
         }
 
-        ws = new WebSocket("{{.Host}}");
+        // ws = new WebSocket("{{.Host}}");
+        ws = new WebSocket("ws://"+window.location.host+"/search");
         ws.onmessage = function (e) {
             stopSearch()
 

@@ -184,7 +184,8 @@ func (we *Web) searchHandler(ws *websocket.Conn) {
 }
 
 func (we *Web) homeHandler(w http.ResponseWriter, r *http.Request) {
-	homeData := &HomeData{Host: "ws://" + r.Host + "/search",
+	homeData := &HomeData{
+		//Host: "ws://" + r.Host + "/search",
 		SearchStats: we.userSearchTrack.getSearchStats(),
 	}
 	err := we.homeTemplate.Execute(w, homeData)
