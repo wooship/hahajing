@@ -141,7 +141,7 @@ func (we *Web) send2Kad(ws *websocket.Conn, myKeywordStruct *com.MyKeywordStruct
 			}
 		case <-time.After(kadSearchWaitingTime * time.Second):
 			if !found {
-				we.writeError(ws, "啥也没搜到，你是不是想找：")
+				we.writeError(ws, "你只搜到了无尽的寂寞！或许你是想找：")
 			}
 			return
 		}

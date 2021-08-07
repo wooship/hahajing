@@ -14,9 +14,21 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <title>KADZILLA</title>
+    <style type='text/css'>
+        #myButton {
+            cursor: pointer;
+            margin-right: 5px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999;
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
+<span id="myButton">◐</span>
 <div style="max-width:50rem; margin:10% auto 0 auto">
     <div style="text-align:center">
         <h1>
@@ -188,7 +200,7 @@
         try {
             decodelink = decodeURIComponent(greatlink)
         } catch (e) {
-            console.log(greatlink)
+            // console.log(greatlink)
             decodelink = greatlink
         }
         var row = '<tr><td><a href="{0}">{1}</a></td><td>{2}</td><td>{3}</td></tr>'.format(greatlink, decodelink, size, file.Avail)
@@ -286,7 +298,7 @@
             for (let i = 0; i < json.s.length; i++) {
                 if ($('#keyword').val() != json.s[i]) {
                     $('#content').append('<a href=\"javascript:send(\'' + json.s[i] + '\');\" style=\"margin-left:0.5rem\">' + json.s[i] + '</a>')
-                    // break
+                    if(i>1) break
                 }
             }
             if(json.s.length==0){
@@ -319,7 +331,7 @@
             var file = $.parseJSON(e.data)
             if (file.hasOwnProperty("Error")) {
                 $('#content').append(file.Error)
-                if (file.Error == "啥也没搜到，你是不是想找：") {
+                if (file.Error == "你只搜到了无尽的寂寞！或许你是想找：") {
                     baiduSug($('#keyword').val());
                 }
             } else {
@@ -336,6 +348,7 @@
         $("body").removeClass()
         $("body").empty()
 
+        $('body').append('<span id="myButton" style="color: aliceblue;">◐</span>')
         // navbar
         var navbar = '\
             <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: purple">\
@@ -359,6 +372,7 @@
         $("body").css("padding-top", "70px");
 
         bindSearchEvent()
+        bindToggleColorEvent()
 
         // show waiting search result status
         startSearch()
@@ -376,8 +390,19 @@
         });
     }
 
+    function bindToggleColorEvent() {
+        $('#myButton').click(function () {
+            if(typeof($("html").attr("style"))=="undefined"){
+                $('html').css('filter','invert(100%)')
+            }else{
+                $('html').removeAttr("style","")
+            }
+        });
+    }
+
     $(function () {
         bindSearchEvent()
+        bindToggleColorEvent()
     });
 
     function replaceAll(str, a, b) {
