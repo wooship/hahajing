@@ -13,6 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>KADZILLA</title>
     <style type='text/css'>
         #myButton {
@@ -348,7 +349,7 @@
         $("body").removeClass()
         $("body").empty()
 
-        $('body').append('<span id="myButton" style="color: aliceblue;">◐</span>')
+        // $('body').append('<span id="myButton" style="color: aliceblue;">◐</span>')
         // navbar
         var navbar = '\
             <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: purple">\
@@ -372,7 +373,7 @@
         $("body").css("padding-top", "70px");
 
         bindSearchEvent()
-        bindToggleColorEvent()
+        // bindToggleColorEvent()
 
         // show waiting search result status
         startSearch()
@@ -394,13 +395,21 @@
         $('#myButton').click(function () {
             if(typeof($("html").attr("style"))=="undefined"){
                 $('html').css('filter','invert(100%)')
+                $.cookie('invertColor', 'yes', { expires: 7, path: '/' })
             }else{
                 $('html').removeAttr("style","")
+                $.cookie('invertColor', 'no', { expires: 7, path: '/' })
             }
         });
     }
 
     $(function () {
+        if($.cookie('invertColor')=='yes'){
+            $('html').css('filter','invert(100%)')
+        }else{
+            $('html').removeAttr("style","")
+        }
+
         bindSearchEvent()
         bindToggleColorEvent()
     });
