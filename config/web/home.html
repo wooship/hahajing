@@ -16,26 +16,18 @@
     <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>KADZILLA</title>
     <style type='text/css'>
-        #myButton {
-            cursor: pointer;
-            margin-right: 5px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 9999;
-            font-size: 20px;
+        .blackbody {
+            background: black;
+            filter: invert(100%);
         }
     </style>
 </head>
 
 <body>
-<span id="myButton">
-    <svg style="width: 30px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="bi bi-sunglasses" fill="currentColor" id="sunglasses"><path fill-rule="evenodd" d="M3 5a2 2 0 00-2 2v.5H.5a.5.5 0 000 1H1V9a2 2 0 002 2h1a3 3 0 003-3 1 1 0 112 0 3 3 0 003 3h1a2 2 0 002-2v-.5h.5a.5.5 0 000-1H15V7a2 2 0 00-2-2h-2a2 2 0 00-1.888 1.338A1.99 1.99 0 008 6a1.99 1.99 0 00-1.112.338A2 2 0 005 5H3zm0 1a1 1 0 00-1 1v.941c0 .264.356.348.474.112l.228-.457a2 2 0 01.894-.894l.457-.228C4.289 6.356 4.205 6 3.94 6H3z"></path></svg>
-</span>
 <div style="max-width:50rem; margin:10% auto 0 auto">
     <div style="text-align:center">
         <h1>
-            <span class="badge" style="color: #ffffff; background-color: purple">KADZILLA</span>
+            <span class="badge" style="color: #ffffff; background-color: purple; cursor: pointer;">KADZILLA</span>
         </h1>
         <h6>
             <span class="badge" style="color: #ffffff; background-color: purple">通过KAD网络搜片的小工具，你搜到啥与我无瓜！</span>
@@ -115,7 +107,7 @@
                 divColor = "warning"
             }
 
-            var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, "搜索结果")
+            var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, "广告位招租")
             var inserted = false
             for (var i = file.Season - 1; i > 0; i--) {
                 var seasonDivIDTemp = orgName + "_s" + i.toString()
@@ -348,7 +340,7 @@
         send2WebSocket(data)
 
         // clear body
-        $("body").removeClass()
+        // $("body").removeClass()
         $("body").empty()
 
         // $('body').append('<span id="myButton" style="color: aliceblue;">◐</span>')
@@ -394,22 +386,22 @@
     }
 
     function bindToggleColorEvent() {
-        $('#myButton').click(function () {
-            if(typeof($("html").attr("style"))=="undefined"){
-                $('html').css('filter','invert(100%)')
-                $.cookie('invertColor', 'yes', { expires: 7, path: '/' })
+        $('h1 span').click(function () {
+            if($('body').hasClass('blackbody')){
+                $('body').removeClass('blackbody')
+                $.cookie('blackbody', 'no', { expires: 7, path: '/' })
             }else{
-                $('html').removeAttr("style","")
-                $.cookie('invertColor', 'no', { expires: 7, path: '/' })
+                $('body').addClass('blackbody')
+                $.cookie('blackbody', 'yes', { expires: 7, path: '/' })
             }
         });
     }
 
     $(function () {
-        if($.cookie('invertColor')=='yes'){
-            $('html').css('filter','invert(100%)')
+        if($.cookie('blackbody')=='yes'){
+            $('body').addClass('blackbody')
         }else{
-            $('html').removeAttr("style","")
+            $('body').removeClass('blackbody')
         }
 
         bindSearchEvent()
