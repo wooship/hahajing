@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha384-i61gTtaoovXtAbKjo903+O55Jkn2+RtzHtvNez+yI49HAASvznhe9sZyjaSHTau9"
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -56,6 +56,10 @@
 </div>
 
 <script>
+    //douban全局变量
+    let douban;
+    let douban1;
+
     String.prototype.format = function (args) {
         var result = this;
         if (arguments.length > 0) {
@@ -107,7 +111,21 @@
                 divColor = "warning"
             }
 
-            var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, "广告位招租")
+            //add by wuxiao
+            let doubanstr = ''
+            if (file.Type == 0) {
+                doubanstr = "热门电影："
+                for (let i = 0; i < douban.subjects.length; i++) {
+                    doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
+                }
+            }else{
+                doubanstr = "热门美剧："
+                for (let i = 0; i < douban1.subjects.length; i++) {
+                    doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
+                }
+            }
+
+            var div = '<div id="{0}"><div class="alert alert-{1}">{2}</div></div>'.format(seasonDivID, divColor, doubanstr)
             var inserted = false
             for (var i = file.Season - 1; i > 0; i--) {
                 var seasonDivIDTemp = orgName + "_s" + i.toString()
@@ -293,7 +311,7 @@
             for (let i = 0; i < json.s.length; i++) {
                 if ($('#keyword').val() != json.s[i]) {
                     $('#content').append('<a href=\"javascript:send(\'' + json.s[i] + '\');\" style=\"margin-left:0.5rem\">' + json.s[i] + '</a>')
-                    if(i>1) break
+                    if(i>2) break
                 }
             }
             if(json.s.length==0){
@@ -326,7 +344,7 @@
             var file = $.parseJSON(e.data)
             if (file.hasOwnProperty("Error")) {
                 $('#content').append(file.Error)
-                if (file.Error == "你只搜到了无尽的寂寞！或许你是想找：") {
+                if (file.Error == "你只搜到了无尽的寂寞！可能你感兴趣的是：") {
                     baiduSug($('#keyword').val());
                 }
             } else {
@@ -397,12 +415,39 @@
         });
     }
 
+    //onload
     $(function () {
+        //界面换色
         if($.cookie('blackbody')=='yes'){
             $('body').addClass('blackbody')
         }else{
             $('body').removeClass('blackbody')
         }
+
+        //douban热门电影
+        $.ajax({
+            url: "http://"+window.location.host+"/douban",
+            dataType: "json",
+            type: "get",
+            success:function(res){
+                console.log(res);  //在console中查看数据
+                douban = res;
+            },
+            error:function(){
+            },
+        });
+        //douban热门美剧
+        $.ajax({
+            url: "http://"+window.location.host+"/douban1",
+            dataType: "json",
+            type: "get",
+            success:function(res){
+                console.log(res);  //在console中查看数据
+                douban1 = res;
+            },
+            error:function(){
+            },
+        });
 
         bindSearchEvent()
         bindToggleColorEvent()

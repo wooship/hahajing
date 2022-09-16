@@ -6,6 +6,7 @@ import (
 	"hahajing/com"
 	"hahajing/door"
 	"hahajing/kad"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -141,7 +142,7 @@ func (we *Web) send2Kad(ws *websocket.Conn, myKeywordStruct *com.MyKeywordStruct
 			}
 		case <-time.After(kadSearchWaitingTime * time.Second):
 			if !found {
-				we.writeError(ws, "你只搜到了无尽的寂寞！或许你是想找：")
+				we.writeError(ws, "你只搜到了无尽的寂寞！可能你感兴趣的是：")
 			}
 			return
 		}
@@ -203,12 +204,62 @@ func (we *Web) statsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(s))
 }
 
+//add by wuxiao
+//douban suggestion
+func (we *Web) doubanHandler(w http.ResponseWriter, r *http.Request) {
+	req, err := http.NewRequest("GET", "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=0", nil)
+	//解决反爬虫418
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	client := http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Network Error", err)
+	} else {
+		body, _ := ioutil.ReadAll(resp.Body)
+		/*var respData responseBody
+		json.Unmarshal(body, &respData)
+		fmt.Println("AI: " + respData.Newslist[0])*/
+		fmt.Println(string(body))
+		w.Write([]byte(body))
+	}
+	if resp != nil {
+		resp.Body.Close()
+	}
+}
+
+func (we *Web) douban1Handler(w http.ResponseWriter, r *http.Request) {
+	req, err := http.NewRequest("GET", "https://movie.douban.com/j/search_subjects?type=tv&tag=%E7%BE%8E%E5%89%A7&page_limit=10&page_start=0", nil)
+	//解决反爬虫418
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	client := http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Network Error", err)
+	} else {
+		body, _ := ioutil.ReadAll(resp.Body)
+		/*var respData responseBody
+		json.Unmarshal(body, &respData)
+		fmt.Println("AI: " + respData.Newslist[0])*/
+		fmt.Println(string(body))
+		w.Write([]byte(body))
+	}
+	if resp != nil {
+		resp.Body.Close()
+	}
+}
+
 func (we *Web) startServer() {
 	com.HhjLog.Info("Web Server is running...")
 
 	http.HandleFunc("/", we.homeHandler)
 	http.HandleFunc("/1979", we.statsHandler)
 	http.Handle("/search", websocket.Handler(we.searchHandler))
+
+	//add by wuxiao
+	http.HandleFunc("/douban", we.doubanHandler)
+	http.HandleFunc("/douban1", we.douban1Handler)
 
 	var err error
 	if len(os.Args) > 1 && os.Args[1] == "server" {
