@@ -306,7 +306,7 @@
         }
     }
 
-    window.baidu = {
+    /*window.baidu = {
         sug: function (json) {
             for (let i = 0; i < json.s.length; i++) {
                 if ($('#keyword').val() != json.s[i]) {
@@ -326,7 +326,7 @@
             sug.src = `http://suggestion.baidu.com/su?wd=${str}&cb=window.baidu.sug`
             document.getElementsByTagName('body')[0].appendChild(sug)
         }
-    }
+    }*/
 
     function send(data) {
         //fix bug by wuxiao
@@ -344,8 +344,24 @@
             var file = $.parseJSON(e.data)
             if (file.hasOwnProperty("Error")) {
                 $('#content').append(file.Error)
-                if (file.Error == "你只搜到了无尽的寂寞！可能你感兴趣的是：") {
-                    baiduSug($('#keyword').val());
+                if (file.Error == "你只搜到了无尽的寂寞！") {
+                    // baiduSug($('#keyword').val());
+                    let doubanstr = ''
+                    doubanstr += "热门电影："
+                    for (let i = 0; i < douban.subjects.length; i++) {
+                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
+                    }
+                    doubanstr += "<br/>"
+                    doubanstr += "热门美剧："
+                    for (let i = 0; i < douban1.subjects.length; i++) {
+                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
+                    }
+                    let sug = document.createElement('div')
+                    // sug.attr("style","padding-left: 10px;padding-right: 10px");
+                    sug.style.paddingLeft = '10px'
+                    sug.style.paddingRight = '10px'
+                    sug.innerHTML = doubanstr
+                    document.getElementsByTagName('body')[0].appendChild(sug)
                 }
             } else {
                 addFile(file)
