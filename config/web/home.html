@@ -118,7 +118,7 @@
                 for (let i = 0; i < douban.subjects.length; i++) {
                     doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
                 }
-            }else{
+            } else {
                 doubanstr = "热门美剧："
                 for (let i = 0; i < douban1.subjects.length; i++) {
                     doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
@@ -221,22 +221,22 @@
     }
 
     /*字节转KB、MB、GB*/
-    function change(limit){
+    function change(limit) {
         var size = "";
-        if(limit < 1024){                            //小于1KB，则转化成B
+        if (limit < 1024) {                            //小于1KB，则转化成B
             size = limit.toFixed(0) + "B"
-        }else if(limit < 1024 * 1024){            //小于1MB，则转化成KB
-            size = (limit/1024).toFixed(0) + "KB"
-        }else if(limit < 1024 * 1024 * 1024){        //小于1GB，则转化成MB
-            size = (limit/(1024 * 1024)).toFixed(0) + "MB"
-        }else{                                            //其他转化成GB
-            size = (limit/(1024 * 1024 * 1024)).toFixed(2) + "GB"
+        } else if (limit < 1024 * 1024) {            //小于1MB，则转化成KB
+            size = (limit / 1024).toFixed(0) + "KB"
+        } else if (limit < 1024 * 1024 * 1024) {        //小于1GB，则转化成MB
+            size = (limit / (1024 * 1024)).toFixed(0) + "MB"
+        } else {                                            //其他转化成GB
+            size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB"
         }
 
         var sizeStr = size + "";                        //转成字符串
         var index = sizeStr.indexOf(".");                    //获取小数点处的索引
-        var dou = sizeStr.substr(index + 1 ,2)            //获取小数点后两位的值
-        if(dou == "00"){                                //判断后两位是否为00，如果是则删除00
+        var dou = sizeStr.substr(index + 1, 2)            //获取小数点后两位的值
+        if (dou == "00") {                                //判断后两位是否为00，如果是则删除00
             return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
         }
         return size;
@@ -337,24 +337,24 @@
         }
 
         // ws = new WebSocket("{{.Host}}");
-        ws = new WebSocket("ws://"+window.location.host+"/search");
+        ws = new WebSocket("ws://" + window.location.host + "/search");
         ws.onmessage = function (e) {
             stopSearch()
 
             var file = $.parseJSON(e.data)
             if (file.hasOwnProperty("Error")) {
-                $('#content').append(file.Error)
+                $('#content').append("<h3>" + file.Error + "</h3>")
                 if (file.Error == "你只搜到了无尽的寂寞！") {
                     // baiduSug($('#keyword').val());
                     let doubanstr = ''
                     doubanstr += "热门电影："
                     for (let i = 0; i < douban.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.5rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
+                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
                     }
                     doubanstr += "<br/>"
                     doubanstr += "热门美剧："
                     for (let i = 0; i < douban1.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.5rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
+                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
                     }
                     let sug = document.createElement('div')
                     // sug.attr("style","padding-left: 10px;padding-right: 10px");
@@ -422,12 +422,12 @@
 
     function bindToggleColorEvent() {
         $('h1 span').click(function () {
-            if($('body').hasClass('blackbody')){
+            if ($('body').hasClass('blackbody')) {
                 $('body').removeClass('blackbody')
-                $.cookie('blackbody', 'no', { expires: 7, path: '/' })
-            }else{
+                $.cookie('blackbody', 'no', {expires: 7, path: '/'})
+            } else {
                 $('body').addClass('blackbody')
-                $.cookie('blackbody', 'yes', { expires: 7, path: '/' })
+                $.cookie('blackbody', 'yes', {expires: 7, path: '/'})
             }
         });
     }
@@ -435,34 +435,34 @@
     //onload
     $(function () {
         //界面换色
-        if($.cookie('blackbody')=='yes'){
+        if ($.cookie('blackbody') == 'yes') {
             $('body').addClass('blackbody')
-        }else{
+        } else {
             $('body').removeClass('blackbody')
         }
 
         //douban热门电影
         $.ajax({
-            url: "http://"+window.location.host+"/douban",
+            url: "http://" + window.location.host + "/douban",
             dataType: "json",
             type: "get",
-            success:function(res){
+            success: function (res) {
                 console.log(res);  //在console中查看数据
                 douban = res;
             },
-            error:function(){
+            error: function () {
             },
         });
         //douban热门美剧
         $.ajax({
-            url: "http://"+window.location.host+"/douban1",
+            url: "http://" + window.location.host + "/douban1",
             dataType: "json",
             type: "get",
-            success:function(res){
+            success: function (res) {
                 console.log(res);  //在console中查看数据
                 douban1 = res;
             },
-            error:function(){
+            error: function () {
             },
         });
 
