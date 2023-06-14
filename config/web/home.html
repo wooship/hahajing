@@ -17,8 +17,10 @@
     <title>KADZILLA</title>
     <style type='text/css'>
         .blackbody {
-            background: black;
-            filter: invert(100%);
+            background-image: url("https://picsum.photos/1920/1080");
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*filter: invert(100%);*/
         }
     </style>
 </head>
@@ -27,10 +29,10 @@
 <div style="max-width:50rem; margin:10% auto 0 auto">
     <div style="text-align:center">
         <h1>
-            <span class="badge" style="color: #ffffff; background-color: purple; cursor: pointer;">KADZILLA</span>
+            <span class="badge" style="color: #ffffff; background-color: black; cursor: pointer;">KADZILLA</span>
         </h1>
         <h6>
-            <span class="badge" style="color: #ffffff; background-color: purple">通过KAD网络搜片的小工具，你搜到啥与我无瓜！</span>
+            <span class="badge" style="color: #ffffff; background-color: black">通过KAD网络搜片的小工具，你搜到啥与我无瓜！</span>
         </h6>
     </div>
     <div style="padding-left:5%; padding-right:5%">
@@ -393,11 +395,12 @@
         // clear body
         // $("body").removeClass()
         $("body").empty()
+        $("body").removeClass('blackbody')
 
         // $('body').append('<span id="myButton" style="color: aliceblue;">◐</span>')
         // navbar
         var navbar = '\
-            <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: purple">\
+            <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: #000000ab">\
                 <a class="navbar-brand" href="/">KADZILLA</a>\
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">\
                     <span class="navbar-toggler-icon"></span>\
