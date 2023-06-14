@@ -115,13 +115,21 @@
             let doubanstr = ''
             if (file.Type == 0) {
                 doubanstr = "热门电影："
-                for (let i = 0; i < douban.subjects.length; i++) {
-                    doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
+                if (douban) {
+                    for (let i = 0; i < douban.subjects.length; i++) {
+                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
+                    }
+                } else {
+                    doubanstr += '暂无数据'
                 }
             } else {
                 doubanstr = "热门美剧："
-                for (let i = 0; i < douban1.subjects.length; i++) {
-                    doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
+                if (douban1) {
+                    for (let i = 0; i < douban1.subjects.length; i++) {
+                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
+                    }
+                } else {
+                    doubanstr += '暂无数据'
                 }
             }
 
@@ -348,13 +356,21 @@
                     // baiduSug($('#keyword').val());
                     let doubanstr = ''
                     doubanstr += "热门电影："
-                    for (let i = 0; i < douban.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
+                    if (douban) {
+                        for (let i = 0; i < douban.subjects.length; i++) {
+                            doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
+                        }
+                    } else {
+                        doubanstr += '暂无数据'
                     }
                     doubanstr += "<br/>"
                     doubanstr += "热门美剧："
-                    for (let i = 0; i < douban1.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
+                    if (douban1) {
+                        for (let i = 0; i < douban1.subjects.length; i++) {
+                            doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
+                        }
+                    } else {
+                        doubanstr += '暂无数据'
                     }
                     let sug = document.createElement('div')
                     // sug.attr("style","padding-left: 10px;padding-right: 10px");
