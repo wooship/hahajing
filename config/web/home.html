@@ -364,19 +364,19 @@
                     doubanstr += "热门电影："
                     if (douban) {
                         for (let i = 0; i < douban.subjects.length; i++) {
-                            doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
+                            doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.1rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
                         }
                     } else {
-                        doubanstr += '暂无数据'
+                        doubanstr += '<span style="margin:0.1rem" class="btn btn-danger">' + '暂无数据' + '</span>'
                     }
                     doubanstr += "<br/>"
                     doubanstr += "热门美剧："
                     if (douban1) {
                         for (let i = 0; i < douban1.subjects.length; i++) {
-                            doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.3rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
+                            doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.1rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
                         }
                     } else {
-                        doubanstr += '暂无数据'
+                        doubanstr += '<span style="margin:0.1rem" class="btn btn-warning">' + '暂无数据' + '</span>'
                     }
                     let sug = document.createElement('div')
                     // sug.attr("style","padding-left: 10px;padding-right: 10px");

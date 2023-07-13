@@ -250,9 +250,15 @@ func (we *Web) douban1Handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func faviconHandler(w http.ResponseWriter, r *http.Request) {
+	// 读取并返回网站图标文件
+	http.ServeFile(w, r, "favicon.ico")
+}
+
 func (we *Web) startServer() {
 	com.HhjLog.Info("Web Server is running...")
 
+	http.HandleFunc("/favicon.ico", faviconHandler)
 	http.HandleFunc("/", we.homeHandler)
 	http.HandleFunc("/1979", we.statsHandler)
 	http.Handle("/search", websocket.Handler(we.searchHandler))
