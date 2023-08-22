@@ -16,6 +16,10 @@
     <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>KADZILLA</title>
     <style type='text/css'>
+        a:hover {
+            text-decoration: none;
+        }
+
         .blackbody {
             background-image: url("https://picsum.photos/1920/1080");
             background-position-x: center;
@@ -30,7 +34,7 @@
 </head>
 
 <body>
-<div style="max-width:50rem; margin:10% auto 0 auto">
+<div style="max-width:50rem; margin:15% auto 0 auto">
     <div style="text-align:center">
         <h1>
             <span class="badge" style="color: #ffffff; background-color: black; cursor: pointer;">KADZILLA</span>
@@ -49,13 +53,15 @@
         <div style="margin-top:0.5rem">
             <span class="badge badge-danger">热门搜索</span>
             {{range $i, $v := .SearchStats.HotSearches}}
-                <a href='javascript:send("{{$v}}");' style="margin-left:0.5rem">{{$v}}</a>
+                <a href='javascript:send("{{$v}}");'
+                   style="margin-left:0.5rem;color: white;text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,-1px -1px 0 #000;">{{$v}}</a>
             {{end}}
         </div>
         <div style="margin-top:0.5rem">
             <span class="badge badge-success">最近搜索</span>
             {{range $i, $v := .SearchStats.LatestSearches}}
-                <a href='javascript:send("{{$v}}");' style="margin-left:0.5rem">{{$v}}</a>
+                <a href='javascript:send("{{$v}}");'
+                   style="margin-left:0.5rem;color: white;text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,-1px -1px 0 #000;">{{$v}}</a>
             {{end}}
         </div>
     </div>
