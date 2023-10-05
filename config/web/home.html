@@ -26,7 +26,7 @@
             background-size: cover;
             background-repeat-x: no-repeat;
             background-repeat-y: no-repeat;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) ,url("https://picsum.photos/1920/1080") fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://picsum.photos/1920/1080") fixed;
             /*filter: invert(100%);*/
         }
     </style>
@@ -53,14 +53,14 @@
             <span class="badge badge-danger">热门搜索</span>
             {{range $i, $v := .SearchStats.HotSearches}}
                 <a href='javascript:send("{{$v}}");'
-                   style="margin-left:0.5rem;">{{$v}}</a>
+                   style="margin-left:0.5rem;color:white;mix-blend-mode: difference;">{{$v}}</a>
             {{end}}
         </div>
         <div style="margin-top:0.5rem">
             <span class="badge badge-success">最近搜索</span>
             {{range $i, $v := .SearchStats.LatestSearches}}
                 <a href='javascript:send("{{$v}}");'
-                   style="margin-left:0.5rem;">{{$v}}</a>
+                   style="margin-left:0.5rem;color:white;mix-blend-mode: difference;">{{$v}}</a>
             {{end}}
         </div>
     </div>
