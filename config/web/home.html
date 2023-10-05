@@ -53,14 +53,14 @@
             <span class="badge badge-danger">热门搜索</span>
             {{range $i, $v := .SearchStats.HotSearches}}
                 <a href='javascript:send("{{$v}}");'
-                   style="margin-left:0.5rem;color:white">{{$v}}</a>
+                   style="margin-left:0.5rem;">{{$v}}</a>
             {{end}}
         </div>
         <div style="margin-top:0.5rem">
             <span class="badge badge-success">最近搜索</span>
             {{range $i, $v := .SearchStats.LatestSearches}}
                 <a href='javascript:send("{{$v}}");'
-                   style="margin-left:0.5rem;color:white;">{{$v}}</a>
+                   style="margin-left:0.5rem;">{{$v}}</a>
             {{end}}
         </div>
     </div>
