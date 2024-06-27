@@ -129,7 +129,7 @@
                 doubanstr = "热门电影："
                 if (douban) {
                     for (let i = 0; i < douban.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title + '</a>'
+                        doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title.split(' ')[0] + '\');\" style=\"margin-left:0.5rem\">' + douban.subjects[i].title.split(' ')[0] + '</a>'
                     }
                 } else {
                     doubanstr += '暂无数据'
@@ -138,7 +138,7 @@
                 doubanstr = "热门美剧："
                 if (douban1) {
                     for (let i = 0; i < douban1.subjects.length; i++) {
-                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title + '</a>'
+                        doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title.split(' ')[0] + '\');\" style=\"margin-left:0.5rem\">' + douban1.subjects[i].title.split(' ')[0] + '</a>'
                     }
                 } else {
                     doubanstr += '暂无数据'
@@ -288,7 +288,7 @@
 
     function startSearch() {
         searchStatus = 1
-        $("#content").text("正在搜索")
+        $("#content").html("<h3>正在搜索</h3>")
         searchTimerID = setTimeout("waitingSearch()", 1000)
     }
 
@@ -296,19 +296,19 @@
         switch (searchStatus) {
             case 0:
                 searchStatus = 1
-                $("#content").text("正在搜索")
+                $("#content").html("<h3>正在搜索</h3>")
                 break
             case 1:
                 searchStatus = 2
-                $("#content").text("正在搜索.")
+                $("#content").html("<h3>正在搜索.</h3>")
                 break
             case 2:
                 searchStatus = 3
-                $("#content").text("正在搜索..")
+                $("#content").html("<h3>正在搜索..</h3>")
                 break
             case 3:
                 searchStatus = 0
-                $("#content").text("正在搜索...")
+                $("#content").html("<h3>正在搜索...</h3>")
                 break
         }
 
@@ -364,25 +364,25 @@
             var file = $.parseJSON(e.data)
             if (file.hasOwnProperty("Error")) {
                 $('#content').append("<h3>" + file.Error + "</h3>")
-                if (file.Error == "你只搜到了无尽的寂寞！") {
+                /*if (file.Error == "你只搜到了无尽的寂寞！") {
                     // baiduSug($('#keyword').val());
                     let doubanstr = ''
-                    doubanstr += "热门电影："
+                    doubanstr += "<span class=\"badge badge-danger\">热门电影</span>"
                     if (douban) {
                         for (let i = 0; i < douban.subjects.length; i++) {
-                            doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title + '\');\" style=\"margin:0.1rem\" class=\"btn btn-danger\">' + douban.subjects[i].title + '</a>'
+                            doubanstr += '<a href=\"javascript:send(\'' + douban.subjects[i].title.split(' ')[0] + '\');\" style=\"margin-left:0.5rem;color: black\" class=\"\">' + douban.subjects[i].title.split(' ')[0] + '</a>'
                         }
                     } else {
-                        doubanstr += '<span style="margin:0.1rem" class="btn btn-danger">' + '暂无数据' + '</span>'
+                        doubanstr += '<span style="margin-left:0.5rem" class="">' + '暂无数据' + '</span>'
                     }
                     doubanstr += "<br/>"
-                    doubanstr += "热门美剧："
+                    doubanstr += "<span class=\"badge badge-success\">热门美剧</span>"
                     if (douban1) {
                         for (let i = 0; i < douban1.subjects.length; i++) {
-                            doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title + '\');\" style=\"margin:0.1rem\" class=\"btn btn-warning\">' + douban1.subjects[i].title + '</a>'
+                            doubanstr += '<a href=\"javascript:send(\'' + douban1.subjects[i].title.split(' ')[0] + '\');\" style=\"margin-left:0.5rem;color: black\" class=\"\">' + douban1.subjects[i].title.split(' ')[0] + '</a>'
                         }
                     } else {
-                        doubanstr += '<span style="margin:0.1rem" class="btn btn-warning">' + '暂无数据' + '</span>'
+                        doubanstr += '<span style="margin-left:0.5rem" class="">' + '暂无数据' + '</span>'
                     }
                     let sug = document.createElement('div')
                     // sug.attr("style","padding-left: 10px;padding-right: 10px");
@@ -391,7 +391,7 @@
                     // sug.style.margin = '10px'
                     sug.innerHTML = doubanstr
                     document.getElementsByTagName('body')[0].appendChild(sug)
-                }
+                }*/
             } else {
                 addFile(file)
             }
