@@ -47,6 +47,9 @@ func (we *Web) Start(searchReqCh chan *kad.SearchReq, keywordCheckReqCh chan *do
 	we.userSearchTrack = NewUserSearchTrack()
 
 	// HTML page
+	// 处理静态文件（JS, CSS）
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	//path := com.GetConfigPath()
 	path := com.GetCurrentPath()
 	tmpl, err := template.ParseFiles(path + "/config/web/home.html")
@@ -92,7 +95,7 @@ func (we *Web) readSearchInput(ws *websocket.Conn) (*com.MyKeyword, string) {
 
 	keywords := com.Split2Keywords(text)
 	if keywords == nil {
-		return nil, "没有搜索关键字，请重新输入！"
+		return nil, "无效关键字，请重新输入！"
 	}
 
 	myKeyword := com.NewMyKeyword(keywords)
@@ -142,7 +145,7 @@ func (we *Web) send2Kad(ws *websocket.Conn, myKeywordStruct *com.MyKeywordStruct
 			}
 		case <-time.After(kadSearchWaitingTime * time.Second):
 			if !found {
-				we.writeError(ws, "你只搜到了无尽的寂寞！")
+				we.writeError(ws, "你只搜到了无尽的寂寞...")
 			}
 			return
 		}
@@ -204,8 +207,8 @@ func (we *Web) statsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(s))
 }
 
-//add by wuxiao
-//douban suggestion
+// add by wuxiao
+// douban suggestion
 func (we *Web) doubanHandler(w http.ResponseWriter, r *http.Request) {
 	req, err := http.NewRequest("GET", "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=0", nil)
 	//解决反爬虫418
